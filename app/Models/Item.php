@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = ['name', 'category_id', 'total', 'available', 'broke_count'];
+    protected $fillable = ['name', 'category_id', 'total', 'broke_count'];
 
     public function Category() {
         return $this->belongsTo(Category::class);
@@ -16,13 +16,11 @@ class Item extends Model
         return $this->hasMany(Lending::class);
     }
 
-    public function refreshAvailable()
+    // Accessor untuk hitung available otomatis
+    public function getAvailableAttribute()
     {
-        // Hitung total yang sedang dipinjam (status borrowed)
         $totalBorrowed = $this->lendings()->where('status', 'borrowed')->sum('amount_borrowed');
-        
-        // Update kolom available: Total - Rusak - Sedang Dipinjam
-        $this->available = $this->total - $this->broke_count - $totalBorrowed;
-        return $this->save();
+
+        return $this->total - $this->broke_count - $totalBorrowed;
     }
 }

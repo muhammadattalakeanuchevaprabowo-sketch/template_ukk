@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'User Operator')
+@section('title', 'Item')
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
@@ -9,42 +9,41 @@
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
 <div class="d-flex justify-content-end mb-3">
-    <a href="{{ route('users.create') }}" class="btn btn-primary">
-        + Tambah User
+    <a href="{{ route('items.create') }}" class="btn btn-primary">
+        + Tambah Item
     </a>
 
-    <a href="{{ route('users.export') }}" class="btn btn-success ms-2">
+    <a href="{{ route('items.export') }}" class="btn btn-success ms-2">
     Export Excel
     </a>
 </div>
 
-@if(session('generatedPassword'))
-    <script>
-        alert("Password user baru adalah: {{ session('generatedPassword') }}");
-    </script>
-@endif
-
-<table id="userOpTable">
+<table id="itemTable">
     <thead>
         <tr>
             <th>no</th>
             <th>Name</th>
-            <th>Email</th>
+            <th>Category</th>
+            <th>Total</th>
+            <th>Available</th>
+            <th>Broke Item</th>
+            <th>Amount Borrowed</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($users as $user)
+        @foreach ($items as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->category->name }}</td>
+                <td>{{ $item->total }}</td>
+                <td>{{ $item->getAvailableAttribute() }}</td>
+                <td>{{ $item->broke_count }}</td>
+                <td>{{ $item->lendings->sum('amount_borrowed') }}</td>
                 <td>
-                    <form action="{{ route('users.reset_password', $user->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-info">Reset Password</button>
-                    </form>
-                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
+                    <a href="{{ route('items.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
@@ -57,7 +56,7 @@
 
 <script>
 $(document).ready(function () {
-    $('#userOpTable').DataTable();
+    $('#itemTable').DataTable();
 });
 </script>
 @endsection

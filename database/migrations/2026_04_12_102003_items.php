@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('total')->default(0);
-            $table->integer('available')->default(0);
             $table->integer('broke_count')->default(0);
             $table->timestamps();
         });

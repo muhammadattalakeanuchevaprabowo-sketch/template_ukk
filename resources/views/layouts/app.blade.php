@@ -30,10 +30,14 @@
 
     <ul class="nav flex-column">
         <h6>Items Data</h6>
-        <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link text-white">Category</a></li>
-        <li class="nav-item"><a href="{{ route('divisions.index') }}" class="nav-link text-white">Division</a></li>
-        <li class="nav-item"><a href="" class="nav-link text-white">Lending</a></li>
-        <li class="nav-item"><a href="" class="nav-link text-white">Item</a></li>
+        @if (auth()->user()->role == 'admin')
+            <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link text-white">Category</a></li>
+            <li class="nav-item"><a href="{{ route('divisions.index') }}" class="nav-link text-white">Division</a></li>
+        @endif
+        @if (auth()->user()->role == 'staff')
+        <li class="nav-item"><a href="{{ route('lendings.index') }}" class="nav-link text-white">Lending</a></li>
+        @endif
+        <li class="nav-item"><a href="{{ route('items.index') }}" class="nav-link text-white">Item</a></li>
     </ul>
 
     <hr>
@@ -45,10 +49,12 @@
 
     <hr>
 
+    @if (auth()->user()->role == 'admin')
     <h6>Admin</h6>
     <ul class="nav flex-column">
         <li class="nav-item"><a href="{{ route('users.operator') }}" class="nav-link text-white">Operator</a></li>
     </ul>
+    @endif
 
     <div class="mt-4">
         <form method="POST" action="{{ route('logout') }}">

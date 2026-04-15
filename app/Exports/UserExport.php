@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\Hash;
 
-class UsersExport implements FromCollection, WithMapping, WithHeadings
+class UserExport implements FromCollection, WithMapping, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection

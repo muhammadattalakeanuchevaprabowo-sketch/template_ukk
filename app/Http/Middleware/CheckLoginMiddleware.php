@@ -16,7 +16,7 @@ class CheckLoginMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->user()) {
-            abort(401);
+            abort(401, 'Unauthorized');
         }
 
         return $next($request);

@@ -71,7 +71,7 @@ class UserController extends Controller
     }
 
     public function exportExcel() {
-        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\UsersExport, 'users.xlsx');
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\UserExport, 'users.xlsx');
     }
 
     public function destroy($id) {
