@@ -21,7 +21,7 @@ Route::middleware('checkLogin')->group(function () {
         Route::post('/users/{user}/reset-password', [App\Http\Controllers\UserController::class, 'resetPasswordAdmin'])->name('users.reset_password');
     });
     Route::middleware('role:staff')->group(function () {
-        Route::resource('lendings', App\Http\Controllers\LendingController::class);
+        Route::resource('lendings', App\Http\Controllers\LendingController::class)->except('show');
         Route::get('/lendings/export', [App\Http\Controllers\LendingController::class, 'exportExcel'])->name('lendings.export');
         Route::post('/lendings/{lending}/return', [App\Http\Controllers\LendingController::class, 'return'])->name('lendings.return');
     });

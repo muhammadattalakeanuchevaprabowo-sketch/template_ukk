@@ -37,11 +37,16 @@
                 <td>{{ $category->division->name}}</td>
                 <td>
                     <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
+
+                    @if ($category->items()->count() == 0)
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    {{-- @else
+                        <button type="button" class="btn btn-sm btn-secondary" disabled title="Category sudah dipakai">Delete</button> --}}
+                    @endif
                 </td>
             </tr>
         @endforeach

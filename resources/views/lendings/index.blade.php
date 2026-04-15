@@ -12,6 +12,10 @@
     <a href="{{ route('lendings.create') }}" class="btn btn-primary">
         + Tambah Lending
     </a>
+
+    <a href="{{ route('lendings.export') }}" class="btn btn-success ms-2">
+    Export Excel
+    </a>
 </div>
 
 <table id="lendingTable">
@@ -39,8 +43,8 @@
                 <td>{{ $lending->description }}</td>
                 <td>{{ $lending->amount_borrowed }}</td>
                 <td>{{ $lending->status }}</td>
-                <td>{{ $lending->created_at->format('d/m/Y') }}</td>
-                <td>{{ $lending->returned_at ? $lending->returned_at->format('d/m/Y') : '-' }}</td>
+                <td>{{ $lending->created_at->locale('id')->translatedFormat('d/m/Y H:i') }}</td>
+                <td>{{ $lending->returned_at ? $lending->returned_at->locale('id')->translatedFormat('d/m/Y H:i') : '-' }}</td>
                 <td>
                     <div class="d-flex gap-2">
                         @if($lending->status === 'borrowed')
@@ -50,11 +54,11 @@
                             </form>
                         @endif
 
-                        <form action="{{ route('lendings.destroy', $lending->id) }}" method="POST">
+                        {{-- <form action="{{ route('lendings.destroy', $lending->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                        </form>
+                        </form> --}}
                     </div>
                 </td>
             </tr>
