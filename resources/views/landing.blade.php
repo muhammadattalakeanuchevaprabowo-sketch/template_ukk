@@ -76,6 +76,9 @@
                     <h5 class="modal-title">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+                @error('login')
+                        <div class="text text-danger ms-3 mt-2">{{ $message }}</div>
+                    @enderror
                 <div class="modal-body">
                     <div class="mb-3">
                         <label>Email</label>

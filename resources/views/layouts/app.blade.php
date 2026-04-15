@@ -47,7 +47,7 @@
 
     <h6>Admin</h6>
     <ul class="nav flex-column">
-        <li class="nav-item"><a href="" class="nav-link text-white">Operator</a></li>
+        <li class="nav-item"><a href="{{ route('users.operator') }}" class="nav-link text-white">Operator</a></li>
     </ul>
 
     <div class="mt-4">
