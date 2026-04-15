@@ -48,6 +48,14 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Check if user has specific role
+     */
+    public function hasRole($role): bool
+    {
+        return $this->role === $role;
+    }
+
     public function lendings() {
         return $this->hasMany(Lending::class);
     }
